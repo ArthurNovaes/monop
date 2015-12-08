@@ -1,0 +1,91 @@
+body{
+  background:#fff
+}
+
+#logo{
+  width:200px;
+  background: #fff;
+  max-width:200px
+}
+
+#header{
+  margin: auto;
+    width: 100%;
+}
+
+#logo{
+  float: left
+}
+
+#menu{
+  float:right;
+  width: calc(100% - 350px)
+}
+
+#menu ul{
+  float:left;
+  background:#FFAF15;
+  display: inline;
+  margin: 0;
+  padding: 15px 4px 17px 0;
+  list-style: none;
+  box-shadow:none
+}
+
+#menu ul li.item{
+  font: bold 12px/18px sans-serif;
+  display: inline-block;
+  background:#FFAF15;
+  margin-right: -4px;
+  position: relative;
+  padding: 10px 15px;
+  background:#FFAF15;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s
+}
+
+ul.obras{
+  padding: 0;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 160px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #FFAF15;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s
+
+}
+
+#menu ul li.item ul.obras li.item{
+  background: #FFAF15;
+  display: inline-block;
+  padding: 10px 15px;
+  width:40px;
+  max-width: 50px;
+  color: #fff;
+  z-index:15;
+  text-align: center
+}
+
+ul.obras li.item:hover{
+  background: #ccc
+}
+
+#menu ul li.item:hover ul.obras{
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}

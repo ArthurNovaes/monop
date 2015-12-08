@@ -1,0 +1,37 @@
+﻿<fieldset><legend style='width:30%;' align='left'>".$dsc_titulo."</legend>
+
+
+"<h2>".$dsc_titulo."</h2>";
+
+
+
+Investimento Total: .$investimento_total
+Estados 
+
+onde esta sendo Realizado: .$sig_uf
+Municipios 
+
+onde esta sendo Realizado: .$txt_municipios
+
+
+Órgão Responsável pela execução do empreendimento: .$txt_executores
+
+
+Órgão Responsável pelo monitoramento do empreendimento: .$dsc_orgao
+
+
+Estágio do empreendimento: .$estagio
+Data 
+
+limite de atualizações das informações do empreendimento: .$dat_ciclo
+
+
+
+Data em que o empreendimento foi selecionado e incluído na carteira de projetos do PAC:.$dat_selecao
+
+
+
+Data de conclusão do empreendimento atualizada e revisada: .$dat_conclusao_revisada
+
+
+Observação: .$observacao
