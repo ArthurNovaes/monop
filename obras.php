@@ -3,12 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<?php
-		$busca=$_GET['uf'];
-		echo "<title>Monop - ".$busca."</title>";
+		if(isset($_GET['uf']))
+		{
+			$busca=$_GET['uf'];
+			echo "<title>Monop - ".$busca."</title>";
+		}
 	?>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
 	<link rel="stylesheet" href="css/header.css">
+
 	<link rel="shortcut icon" href="img/icone.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -20,12 +24,161 @@
 			include "header.html";
 			$string = file_get_contents("convertcsv.json");
 			$result = json_decode($string);
+
+			if(!isset($_GET['uf']))
+			{
+				echo "<title>Monop - Obras</title>";
+				echo "<legend><h1>MONITORAMENTO DE OBRAS PÚBLICAS POR ESTADO</h1></legend>";
+
+				include "dashboard.php";
+				$dashboard = new Dashboard();
+				$dashboard->init();
+		?>
+				<script type="text/javascript" src="js/jsapi.js"></script>
+				<script type="text/javascript">
+			      google.load("visualization", "1", {packages:["geochart"]});
+			      google.setOnLoadCallback(drawRegionsMap);
+			      function drawRegionsMap() {
+			        var data = google.visualization.arrayToDataTable([
+			          ['Country', 'Quantidade'],
+				      ['Rio Grande do Sul', <?php echo $dashboard->QtdObrasPorEstado('RS'); ?>], ['Paraná', <?php echo $dashboard->QtdObrasPorEstado('PR'); ?>],
+				      ['Santa Catarina', <?php echo $dashboard->QtdObrasPorEstado('SC'); ?>], ['São Paulo', <?php echo $dashboard->QtdObrasPorEstado('SP'); ?>],
+			          ['Rio de Janeiro', <?php echo $dashboard->QtdObrasPorEstado('RJ'); ?>], ['Espírito Santo', <?php echo $dashboard->QtdObrasPorEstado('ES'); ?>],
+			          ['Minas Gerais', <?php echo $dashboard->QtdObrasPorEstado('MG'); ?>], ['Distrito Federal', <?php echo $dashboard->QtdObrasPorEstado('DF'); ?>],
+			          ['Goiás', <?php echo $dashboard->QtdObrasPorEstado('GO'); ?>], ['Mato Grosso do Sul', <?php echo $dashboard->QtdObrasPorEstado('MS'); ?>],
+			          ['Mato Grosso', <?php echo $dashboard->QtdObrasPorEstado('MT'); ?>], ['Rondônia', <?php echo $dashboard->QtdObrasPorEstado('RO'); ?>],
+			          ['Acre', <?php echo $dashboard->QtdObrasPorEstado('AC'); ?>], ['Amazonas', <?php echo $dashboard->QtdObrasPorEstado('AM'); ?>],
+			          ['Roraima', <?php echo $dashboard->QtdObrasPorEstado('RR'); ?>], ['Pará', <?php echo $dashboard->QtdObrasPorEstado('PA'); ?>],
+			          ['Amapá', <?php echo $dashboard->QtdObrasPorEstado('AP'); ?>], ['Tocantins', <?php echo $dashboard->QtdObrasPorEstado('TO'); ?>],
+			          ['Maranhão', <?php echo $dashboard->QtdObrasPorEstado('MA'); ?>], ['Piauí', <?php echo $dashboard->QtdObrasPorEstado('PI'); ?>],
+			          ['Ceará', <?php echo $dashboard->QtdObrasPorEstado('CE'); ?>], ['Rio Grande do Norte', <?php echo $dashboard->QtdObrasPorEstado('RN'); ?>],
+			          ['Paraíba', <?php echo $dashboard->QtdObrasPorEstado('PB'); ?>], ['Pernambuco', <?php echo $dashboard->QtdObrasPorEstado('PE'); ?>],
+			          ['Alagoas', <?php echo $dashboard->QtdObrasPorEstado('AL'); ?>], ['Sergipe', <?php echo $dashboard->QtdObrasPorEstado('SE'); ?>],
+			          ['Bahia', <?php echo $dashboard->QtdObrasPorEstado('BA'); ?>]
+			        ]);
+
+			        var options = {
+			        	dataMode: 'regions',
+			          	region: 'BR',
+				        resolution: 'provinces',
+			          	colorAxis: {colors: ['#999999', '#C0C0C0', '#FFAF15']},
+			          	backgroundColor: '#fff',
+			          	datalessRegionColor: '#fff',
+			          	defaultColor: '#f5f5f5',
+						displayMode: 'auto'
+			        };
+
+			        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+							google.visualization.events.addListener(chart, 'select', function() {
+								var selectionIdx = chart.getSelection()[0].row;
+								var stateName = data.getValue(selectionIdx, 0);
+								window.open('obras.php?uf=' +stateName);
+							});
+							chart.draw(data, options);
+			      };
+			    </script>
+			    <br>
+			    <div class="row">
+			    	<div class="col-md-2"></div>
+					<div class="col-md-5">
+			    		<div id="geochart-colors" style="width: 700px; height: 433px;"></div>
+			    	</div>
+			    	<div class="col-md-3"></div>
+		    	</div>
+				<?php include "footer.html"; ?>
+		<?php 	exit;
+			}
+
+			switch ($busca) {
+				case 'Acre':
+					$busca_aux="AC";
+				break;
+				case 'Alagoas':
+					$busca_aux="AL";
+				break;
+				case 'Amapá':
+					$busca_aux="AP";
+				break;
+				case 'Amazonas':
+					$busca_aux="AM";
+				break;
+				case 'Bahia':
+					$busca_aux="BA";
+				break;
+				case 'Ceará':
+					$busca_aux="CE";
+				break;
+				case 'Distrito Federal':
+					$busca_aux="DF";
+				break;
+				case 'Espírito Santo':
+					$busca_aux="ES";
+				break;
+				case 'Goiás':
+					$busca_aux="GO";
+				break;
+				case 'Maranhão':
+					$busca_aux="MA";
+				break;
+				case 'Mato Grosso':
+					$busca_aux="MT";
+				break;
+				case 'Mato Grosso do Sul':
+					$busca_aux="MS";
+				break;
+				case 'Minas Gerais':
+					$busca_aux="MG";
+				break;
+				case 'Pará':
+					$busca_aux="PA";
+				break;
+				case 'Paraíba':
+					$busca_aux="PB";
+				break;
+				case 'Paraná':
+					$busca_aux="PR";
+				break;
+				case 'Pernambuco':
+					$busca_aux="PE";
+				break;
+				case 'Piauí':
+					$busca_aux="PI";
+				break;
+				case 'Rio de Janeiro':
+					$busca_aux="RJ";
+				break;
+				case 'Rio Grande do Norte':
+					$busca_aux="RN";
+				break;
+				case 'Rio Grande do Sul':
+					$busca_aux="RS";
+				break;
+				case 'Rondônia':
+					$busca_aux="RO";
+				break;
+				case 'Roraima':
+					$busca_aux="RR";
+				break;
+				case 'Santa Catarina':
+					$busca_aux="SC";
+				break;
+				case 'São Paulo':
+					$busca_aux="SP";
+				break;
+				case 'Sergipe':
+					$busca_aux="SE";
+				break;
+				case 'Tocantins':
+					$busca_aux="TO";
+				break;
+			}
 		?>
 			<!--<div class="row">-->
 				<br>
 				<fieldset><legend><h1>Obras do Estado de(o/a) <?php echo $busca; ?></h1></legend>
 					<?php
 					$i=1;
+					$in=0;
 					while($i<count($result))
 					{
 						echo "<div class='row'>";
@@ -113,10 +266,15 @@
 						if($observacao=="")
 							$observacao="Não foi Informado";
 
+						if(isset($busca_aux))
+							$estado = strpos($sig_uf, $busca_aux);
+						else
+							$estado = strpos($sig_uf, $busca);
 
-						$estado = strpos($sig_uf, $busca);
 						if($estado)
-						{?>
+						{
+							$in++;
+							?>
 							<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>"> <?php echo $dsc_titulo; ?> </legend>
 										<!-- <h2> $dsc_titulo</h2> </fieldset><br> -->
 						<div id="<?php echo $i; ?>" class="collapse">
@@ -245,14 +403,13 @@
 							</fieldset>
 						</div>
 						<?php }
-						$i++;
-					}
-				?>
+							$i++;
+								}if($in==0){echo "<h1><span class='alert alert-warning'>Não Há Dados para esta Situação</span></h1>";}
+						?>
 				</fieldset>
-
-
 		</div>
-		<?php include "footer.html"; ?>
+	</div>
+	<?php include "footer.html"; ?>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

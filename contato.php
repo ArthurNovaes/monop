@@ -16,7 +16,7 @@
       <div class="row">
         <div class="contact" id="contato">
           <form action="" class="form-horizontal">
-            <div class="col-sm-offset-4 col-sm-12"><legend style="width:30%;"><h1>Contato</h1></legend></div>
+            <div class="col-sm-offset-4 col-sm-12"><legend><h1>Contato</h1></legend></div>
             <div class="form-group">
               <label for="nome" class="col-sm-4 control-label">Nome: </label>
               <div class="col-sm-4">
@@ -41,7 +41,7 @@
                 <textarea rows="4" placeholder="Sua Mensagem"></textarea>
               </div>
             </div>
-                <input type="submit" value="Enviar Mensagem" />
+                <input class="btn btn-primary" type="submit" value="Enviar Mensagem"/>
           </form>
         </div>
       </div>

@@ -438,14 +438,17 @@ class Dashboard {
 		return $total;
 	}
 
-	public function QtdObrasPorEstado()
+	public function QtdObrasPorEstado($uf)
 	{
-		$cont=22;
-		/*$busca = strpos($result[$i]->sig_uf, $uf);
-		if($busca)
-		{
-			$cont++;
-		}*/
+		$cont=0;
+		$i=0;
+		while($i<count($this->result)){
+			//echo $this->result[$i]->sig_uf;
+			$busca = strpos($this->result[$i]->sig_uf, $uf);
+			if($busca)
+				$cont++;
+			$i++;
+		}
 		return $cont;
 	}
 

@@ -5,9 +5,8 @@
 	<title>MonOP</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
-	<link rel="shortcut icon" href="img/icone.png">
 	<link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="css/footer.css">
+	<link rel="shortcut icon" href="img/icone.png">
 
 </head>
 <body>
@@ -43,24 +42,35 @@
 
 				var options = {
 					title: 'Status das Obras',
+					colors: ['#999999', '#ffaf15', '#e3a842', '#cf9e4b', '#c9c9c9'],
 					backgroundColor: 'fff',
 
 				};
 
 				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				function selectHandler() {
+		          var selectedItem = chart.getSelection()[0];
+		          if (selectedItem) {
+		            var topping = data.getValue(selectedItem.row, 0);
+		            window.open('situacao.php?estagio=' +topping);
+		            //alert('The user selected ' + topping);
+		          }
+		        }
+
+        google.visualization.events.addListener(chart, 'select', selectHandler);
 
 				chart.draw(data, options);
 			}
 		</script>
-		<script type="text/javascript">
+		<!--<script type="text/javascript">
 			google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawChart);
 			function drawChart() {
 				var data = google.visualization.arrayToDataTable([
 					["Element", "Density", { role: "style" } ],
-					["Médio", <?php echo $dashboard->getMediaInvestimento(); ?>, "#b87333"],
-					["Maior", <?php echo $dashboard->getMaiorInvestimento(); ?>, "silver"],
-					["Menor", <?php echo $dashboard->getMenorInvestimento(); ?>, "gold"],
+					["Médio", <?php //echo $dashboard->getMediaInvestimento(); ?>, "#b87333"],
+					["Maior", <?php //echo $dashboard->getMaiorInvestimento(); ?>, "silver"],
+					["Menor", <?php //echo $dashboard->getMenorInvestimento(); ?>, "gold"],
 				]);
 
 				var view = new google.visualization.DataView(data);
@@ -81,7 +91,7 @@
 				var chart = new google.visualization.ColumnChart(document.getElementById("piechart2"));
 				chart.draw(view, options);
 				}
-		</script>
+		</script>-->
 		<script type="text/javascript">
 			google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawChart);
@@ -141,27 +151,31 @@
 	      function drawRegionsMap() {
 	        var data = google.visualization.arrayToDataTable([
 	          ['Country', 'Quantidade'],
-		        ['RS', 22], ['PR', -8], ['SC', 6], ['SP', -24],
-	          ['RJ', 12], ['ES', -3], ['MG', 3],
-	          ['DF', 28], ['GO', 15],
-	          ['MS', 4], ['MT', 35], ['RO', 12],
-	          ['AC', -12], ['AM', 6],
-	          ['RR', -3], ['Pará', 12],
-	          ['AP', 26], ['TO', 3], ['MA', 15],
-	          ['PI', 9], ['CE', 0], ['RN', 13], ['PB', 5],
-	          ['PE', 10], ['AL', 12], ['SE', -1],
-	          ['BA', -29]
+		      ['Rio Grande do Sul', <?php echo $dashboard->QtdObrasPorEstado('RS'); ?>], ['Paraná', <?php echo $dashboard->QtdObrasPorEstado('PR'); ?>],
+		      ['Santa Catarina', <?php echo $dashboard->QtdObrasPorEstado('SC'); ?>], ['São Paulo', <?php echo $dashboard->QtdObrasPorEstado('SP'); ?>],
+	          ['Rio de Janeiro', <?php echo $dashboard->QtdObrasPorEstado('RJ'); ?>], ['Espírito Santo', <?php echo $dashboard->QtdObrasPorEstado('ES'); ?>],
+	          ['Minas Gerais', <?php echo $dashboard->QtdObrasPorEstado('MG'); ?>], ['Distrito Federal', <?php echo $dashboard->QtdObrasPorEstado('DF'); ?>],
+	          ['Goiás', <?php echo $dashboard->QtdObrasPorEstado('GO'); ?>], ['Mato Grosso do Sul', <?php echo $dashboard->QtdObrasPorEstado('MS'); ?>],
+	          ['Mato Grosso', <?php echo $dashboard->QtdObrasPorEstado('MT'); ?>], ['Rondônia', <?php echo $dashboard->QtdObrasPorEstado('RO'); ?>],
+	          ['Acre', <?php echo $dashboard->QtdObrasPorEstado('AC'); ?>], ['Amazonas', <?php echo $dashboard->QtdObrasPorEstado('AM'); ?>],
+	          ['Roraima', <?php echo $dashboard->QtdObrasPorEstado('RR'); ?>], ['Pará', <?php echo $dashboard->QtdObrasPorEstado('PA'); ?>],
+	          ['Amapá', <?php echo $dashboard->QtdObrasPorEstado('AP'); ?>], ['Tocantins', <?php echo $dashboard->QtdObrasPorEstado('TO'); ?>],
+	          ['Maranhão', <?php echo $dashboard->QtdObrasPorEstado('MA'); ?>], ['Piauí', <?php echo $dashboard->QtdObrasPorEstado('PI'); ?>],
+	          ['Ceará', <?php echo $dashboard->QtdObrasPorEstado('CE'); ?>], ['Rio Grande do Norte', <?php echo $dashboard->QtdObrasPorEstado('RN'); ?>],
+	          ['Paraíba', <?php echo $dashboard->QtdObrasPorEstado('PB'); ?>], ['Pernambuco', <?php echo $dashboard->QtdObrasPorEstado('PE'); ?>],
+	          ['Alagoas', <?php echo $dashboard->QtdObrasPorEstado('AL'); ?>], ['Sergipe', <?php echo $dashboard->QtdObrasPorEstado('SE'); ?>],
+	          ['Bahia', <?php echo $dashboard->QtdObrasPorEstado('BA'); ?>]
 	        ]);
 
 	        var options = {
-						dataMode: 'regions',
-	          region: 'BR',
+	        	dataMode: 'regions',
+	          	region: 'BR',
 		        resolution: 'provinces',
-	          colorAxis: {colors: ['#999999', '#C0C0C0', '#FFAF15']},
-	          backgroundColor: '#fff',
-	          datalessRegionColor: '#fff',
-	          defaultColor: '#f5f5f5',
-						displayMode: 'text'
+	          	colorAxis: {colors: ['#999999', '#C0C0C0', '#FFAF15']},
+	          	backgroundColor: '#fff',
+	          	datalessRegionColor: '#fff',
+	          	defaultColor: '#f5f5f5',
+				displayMode: 'auto'
 	        };
 
 	        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
@@ -178,14 +192,15 @@
 	    </script>
 		<div class="container">
 			<h1>Charts, only!</h1>
-			<div class="row">
+			<div class="row" align="center">
 		        <div class="col-md-5">
 		          <div id="piechart" style="width: 600px; height: 400px;"></div>
 		        </div>
+		        <div class="col-md-1"></div>
 		        <div class="col-md-5">
 							<div class="well">
 								<h1>Investimento</h1>
-		          	<?php
+		          				<?php
 									echo "<h2>Maior: R$ ".number_format($dashboard->getMaiorInvestimento(),2,",",".")."</h2>";
 									echo "<h2>Menor: R$ ".number_format($dashboard->getMenorInvestimento(),2,",",".")."</h2>";
 								?>

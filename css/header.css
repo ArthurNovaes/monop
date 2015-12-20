@@ -5,7 +5,8 @@ body{
 #logo{
   width:200px;
   background: #fff;
-  max-width:200px
+  max-width:200px;
+
 }
 
 #header{
@@ -29,7 +30,8 @@ body{
   margin: 0;
   padding: 15px 4px 17px 0;
   list-style: none;
-  box-shadow:none
+  box-shadow:none;
+  
 }
 
 #menu ul li.item{
@@ -45,7 +47,8 @@ body{
   -moz-transition: all 0.2s;
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
-  transition: all 0.2s
+  transition: all 0.2s;
+
 }
 
 ul.obras{

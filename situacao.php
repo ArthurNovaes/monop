@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<?php
-		$busca=$_GET['estagio'];
+		if(isset($_GET['estagio']))
+			$busca=$_GET['estagio'];
 	?>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
@@ -12,7 +13,12 @@
 	<title>Monop - Situação</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  	<style>
+  		a.thumbnail:hover{
+  			color: #FFAF15;
+  		}
+  	</style>
 
 </head>
 <body>
@@ -22,11 +28,114 @@
 			include "header.html";
 			$string = file_get_contents("convertcsv.json");
 			$result = json_decode($string);
+
+			if(!isset($_GET['estagio']))
+			{
+				echo "<legend><h1>MONITORAMENTO DE OBRAS PÚBLICAS POR SITUAÇÃO</h1></legend>";
+
+				include "dashboard.php";
+				$dashboard = new Dashboard();
+				$dashboard->init();
+				?>
+				<div class="well">
+					<div class="row">
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Não Informado" class="thumbnail">
+						      <h1>Não Informado</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=A Selecionar" class="thumbnail">
+						      <h1>A Selecionar</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em Contratação" class="thumbnail">
+						      <h1>Em Contratação</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Ação Preparatória" class="thumbnail">
+						      <h1>Ação Preparatória</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em licitação de obra" class="thumbnail">
+						      <h1>Em licitação de obra</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em licitação de Projeto" class="thumbnail">
+						      <h1>Em licitação de Projeto</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em obras" class="thumbnail">
+						      <h1>Em obras</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em execução" class="thumbnail">
+						      <h1>Em execução</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Concluído" class="thumbnail">
+						      <h1>Concluído</h1>
+						    </a>
+						  </div>
+						  <div class="col-xs-6 col-md-3">
+						    <a href="?estagio=Em Operação" class="thumbnail">
+						      <h1>Em Operação</h1>
+						    </a>
+						  </div>
+					</div>
+				</div>
+
+				<?php
+				include "footer.html";
+				exit;
+			}
 		?>
 		<div class="row">
 			<br>
 			<fieldset><legend><h1>Obras por Situação</h1></legend>
 				<?php
+
+				switch ($busca) {
+					case 'Não Informado':
+						$busca_aux=0;
+					break;
+					case 'A Selecionar':
+						$busca_aux=3;
+					break;
+					case 'Em contratação':
+						$busca_aux=5;
+					break;
+					case 'Ação Preparatória':
+						$busca_aux=10;
+					break;
+					case 'Em licitação de obra':
+						$busca_aux=40;
+					break;
+					case 'Em licitação de Projeto':
+						$busca_aux=41;
+					break;
+					case 'Em Obras':
+						$busca_aux=70;
+					break;
+					case 'Em Execução':
+						$busca_aux=71;
+					break;
+					case 'Concluído':
+						$busca_aux=90;
+					break;
+					case 'Em Operação':
+						$busca_aux=91;
+					break;
+				}
+
+
 				$i=1;
 				$in=0;
 				while($i<count($result))
@@ -109,17 +218,17 @@
 					if($observacao=="")
 						$observacao="Não foi Informado";
 
-					if($busca==$idn_estagio)
+					if($busca_aux==$idn_estagio)
 					{
 						$in++;?>
-						<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>"> <?php echo $estagio; ?> </legend>
+						<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>"> <?php echo "<strong>".$dsc_titulo."</strong>";//$estagio; ?> </legend>
 							<div id="<?php echo $i; ?>" class="collapse">
 									<!-- <h2> $dsc_titulo</h2> </fieldset><br> -->
 								<div class="well">
 										<table style="width:85%">
-										<tr>
+										<!--<tr>
 										<th><label>Nome do Empreendimento: </label></th> <td><?php echo $dsc_titulo; ?><br></td>
-										</tr><tr>
+										</tr>--><tr>
 										<th><label>Investimento Total: </label></th> <td><?php echo $investimento_total; ?><br></td>
 										</tr><tr>
 										<th><label>Estados onde esta sendo Realizado: </label></th> <td><?php echo $sig_uf; ?><br></td>
@@ -148,12 +257,13 @@
 					$i++;
 				}
 				if($in==0)
-					{echo "<h1><span class='alert alert-warning'>Não Há Dados para esta Situação</span></h1>";}
+					{echo "<h1><span class='alert alert-warning'>Não Há Dados para a Situação Selecionada</span></h1>";}
 			?>
 			</fieldset>
 		</div>
 	</div>
-		<?php include "footer.html"; ?>
+	<?php include "footer.html"; ?>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </body>
 </html>
