@@ -79,8 +79,10 @@
 			    </script>
 			    <br>
 			    <div class="row">
+			    	<h2>Regiões onde ocorrem obras do PAC</h2><br>
 			    	<div class="col-md-2"></div>
 					<div class="col-md-5">
+
 			    		<div id="geochart-colors" style="width: 700px; height: 433px;"></div>
 			    	</div>
 			    	<div class="col-md-3"></div>
@@ -275,7 +277,7 @@
 						{
 							$in++;
 							?>
-							<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>"> <?php echo $dsc_titulo; ?> </legend>
+							<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>" title="Clique Para Expandir"> <?php echo $dsc_titulo; ?> </legend>
 										<!-- <h2> $dsc_titulo</h2> </fieldset><br> -->
 						<div id="<?php echo $i; ?>" class="collapse">
 							<div class="well" align="center">
@@ -404,7 +406,7 @@
 						</div>
 						<?php }
 							$i++;
-								}if($in==0){echo "<h1><span class='alert alert-warning'>Não Há Dados para esta Situação</span></h1>";}
+								}if($in==0){echo "<br><h1><span class='alert alert-warning'>Não Há Dados para esta Situação</span></h1><br><br>";}
 						?>
 				</fieldset>
 		</div>

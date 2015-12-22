@@ -201,8 +201,10 @@
 							<div class="well">
 								<h1>Investimento</h1>
 		          				<?php
-									echo "<h2>Maior: R$ ".number_format($dashboard->getMaiorInvestimento(),2,",",".")."</h2>";
-									echo "<h2>Menor: R$ ".number_format($dashboard->getMenorInvestimento(),2,",",".")."</h2>";
+									echo "<a href=busca.php?search=".$dashboard->getMaiorInvestimento()." class='a'>
+											<h2>Maior: R$ ".number_format($dashboard->getMaiorInvestimento(),2,",",".")."</h2></a>";
+									echo "<a href=busca.php?search=".$dashboard->getMenorInvestimento().">
+											<h2>Menor: R$ ".number_format($dashboard->getMenorInvestimento(),2,",",".")."</h2></a>";
 								?>
 			        </div>
 		        </div>
@@ -212,7 +214,7 @@
 		    	<div class="col-md-5">
 		          <div id="piechart3" style="width: 600px; height: 400px;"></div>
 		        </div>
-		    	<div class="col-md-5">
+		    	<div class="col-md-5"><b>Regiões onde ocorrem obras do PAC</b>
 		    		<div id="geochart-colors" style="width: 700px; height: 433px;"></div>
 		    	</div>
 

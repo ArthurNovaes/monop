@@ -59,7 +59,7 @@ class Dashboard {
 		}
 		return $total;
 	}
-	public function getMediaInvestimento(){
+	/*public function getMediaInvestimento(){
 		$media = 0;
 		$i=0;
 		while($i<count($this->result)){
@@ -72,7 +72,7 @@ class Dashboard {
 		}
 		$media=round($media/$i);
 		return $media;
-	}
+	}*/
 	public function getMaiorInvestimento(){
 		$maior = 0;
 		$i=0;
@@ -437,7 +437,6 @@ class Dashboard {
 		}
 		return $total;
 	}
-
 	public function QtdObrasPorEstado($uf)
 	{
 		$cont=0;
@@ -451,6 +450,18 @@ class Dashboard {
 		}
 		return $cont;
 	}
-
+	public function BuscaValor($valor)
+	{
+		$cont=0;
+		$i=0;
+		while($i<count($this->result)){
+			//echo $this->result[$i]->sig_uf;
+			$busca = strpos($this->result[$i]->sig_uf, $valor);
+			if($busca)
+				$cont++;
+			$i++;
+		}
+		return $cont;
+	}
 }
 ?>

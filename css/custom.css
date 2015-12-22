@@ -90,6 +90,11 @@ a:hover {
   color: #fff;
 }
 
+.well a:hover{
+  text-decoration: none;
+  color: #FFAF15;
+}
+
 footer{
   position: relative;
   width: 100wh;

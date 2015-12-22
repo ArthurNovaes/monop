@@ -38,6 +38,7 @@
 				$dashboard->init();
 				?>
 				<div class="well">
+					<h2>Selecione o tipo de obra por situação.</h2><br>
 					<div class="row">
 						  <div class="col-xs-6 col-md-3">
 						    <a href="?estagio=Não Informado" class="thumbnail">
@@ -50,7 +51,7 @@
 						    </a>
 						  </div>
 						  <div class="col-xs-6 col-md-3">
-						    <a href="?estagio=Em Contratação" class="thumbnail">
+						    <a href="?estagio=Em contratação" class="thumbnail">
 						      <h1>Em Contratação</h1>
 						    </a>
 						  </div>
@@ -70,13 +71,13 @@
 						    </a>
 						  </div>
 						  <div class="col-xs-6 col-md-3">
-						    <a href="?estagio=Em obras" class="thumbnail">
-						      <h1>Em obras</h1>
+						    <a href="?estagio=Em Obras" class="thumbnail">
+						      <h1>Em Obras</h1>
 						    </a>
 						  </div>
 						  <div class="col-xs-6 col-md-3">
-						    <a href="?estagio=Em execução" class="thumbnail">
-						      <h1>Em execução</h1>
+						    <a href="?estagio=Em Execução" class="thumbnail">
+						      <h1>Em Execução</h1>
 						    </a>
 						  </div>
 						  <div class="col-xs-6 col-md-3">
@@ -221,7 +222,7 @@
 					if($busca_aux==$idn_estagio)
 					{
 						$in++;?>
-						<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>"> <?php echo "<strong>".$dsc_titulo."</strong>";//$estagio; ?> </legend>
+						<fieldset><legend style="width:30%"; align="center" data-toggle="collapse" data-target="#<?php echo $i; ?>" title="Clique Para Expandir"> <?php echo "<strong>".$dsc_titulo."</strong>";//$estagio; ?> </legend>
 							<div id="<?php echo $i; ?>" class="collapse">
 									<!-- <h2> $dsc_titulo</h2> </fieldset><br> -->
 								<div class="well">
@@ -257,7 +258,7 @@
 					$i++;
 				}
 				if($in==0)
-					{echo "<h1><span class='alert alert-warning'>Não Há Dados para a Situação Selecionada</span></h1>";}
+					{echo "<br><h1><span class='alert alert-warning'>Não Há Dados para a Situação Selecionada</span></h1><br><br>";}
 			?>
 			</fieldset>
 		</div>
